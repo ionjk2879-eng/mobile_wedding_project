@@ -27,4 +27,16 @@ export interface InvitationData {
   bgMusicUrl: string;
   groomMessage: string;
   brideMessage: string;
+  isRSVPEnabled: boolean;
+}
+
+export interface RSVPResponse {
+  id?: string;
+  guestName: string;
+  isAttending: boolean;
+  totalGuests: number;
+  wantsMeal: boolean;
+  relation: 'groom' | 'bride';
+  message: string;
+  createdAt?: string;
 }

@@ -5,11 +5,14 @@ import Greeting from './components/Preview/Greeting';
 import PersonalMessage from './components/Preview/PersonalMessage';
 import Gallery from './components/Preview/Gallery';
 import Location from './components/Preview/Location';
+import RSVPForm from './components/Preview/RSVPForm';
 import Money from './components/Preview/Money';
 import Share from './components/Preview/Share';
+import Dashboard from './components/Admin/Dashboard';
 import { InvitationData } from './types';
 
 const App: React.FC = () => {
+  const [showDashboard, setShowDashboard] = useState(false);
   const [data, setData] = useState<InvitationData>({
     groomName: '김지현',
     brideName: '이민지',
@@ -39,14 +42,19 @@ const App: React.FC = () => {
     bgMusicUrl: '',
     groomMessage: '항상 곁에서 힘이 되어주는 든든한 남편이 되겠습니다.',
     brideMessage: '서로 아끼고 배려하며 예쁘게 잘 살겠습니다.',
+    isRSVPEnabled: true,
   });
 
   return (
     <div className="builder-layout">
+      {showDashboard && <Dashboard onClose={() => setShowDashboard(false)} />}
       <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Gowun+Dodum&family=Nanum+Myeongjo&family=Dancing+Script&display=swap" rel="stylesheet" />
       <div className="editor-panel">
         <header className="builder-header">
-          <h1>💍 Invitation Builder</h1>
+          <div className="header-main">
+            <h1>💍 Invitation Builder</h1>
+            <button className="admin-btn" onClick={() => setShowDashboard(true)}>📊 응답 분석</button>
+          </div>
           <p>내용을 입력하면 오른쪽에서 실시간으로 확인할 수 있습니다.</p>
         </header>
         <EditorContainer data={data} onChange={setData} />
@@ -61,6 +69,7 @@ const App: React.FC = () => {
               <PersonalMessage data={data} />
               <Gallery data={data} />
               <Location data={data} />
+              <RSVPForm data={data} />
               <Money data={data} />
               <Share data={data} />
             </div>
@@ -90,7 +99,7 @@ const App: React.FC = () => {
           display: flex;
           flex-direction: column;
           height: 100vh;
-          background: #fcfaf5; /* Ivory / Light Champagne background for Editor */
+          background: #fcfaf5;
           z-index: 10;
           box-shadow: 10px 0 30px rgba(74, 69, 67, 0.05);
           overflow: hidden;
@@ -100,6 +109,24 @@ const App: React.FC = () => {
           border-bottom: 1px solid #f0eae5;
           background: #fcfaf5;
           flex-shrink: 0;
+        }
+        .header-main {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .admin-btn {
+          background: #b89c8e;
+          color: white;
+          padding: 8px 14px;
+          border-radius: 10px;
+          font-size: 0.85rem;
+          font-weight: 700;
+          transition: all 0.2s;
+        }
+        .admin-btn:hover {
+          background: #a68b7d;
+          transform: translateY(-1px);
         }
         .builder-header h1 {
           font-size: 1.6rem;
@@ -149,7 +176,6 @@ const App: React.FC = () => {
           flex-direction: column;
           flex-shrink: 0;
         }
-        /* Top Notch - Sleeker */
         .phone-frame::before {
           content: '';
           position: absolute;

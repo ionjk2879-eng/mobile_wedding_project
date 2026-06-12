@@ -1,0 +1,217 @@
+import React, { useState } from 'react';
+import { InvitationData } from '../../types';
+import { CheckCircle2, Users, Utensils } from 'lucide-react';
+
+interface PreviewProps {
+  data: InvitationData;
+}
+
+const RSVPForm: React.FC<PreviewProps> = ({ data }) => {
+  const [formData, setFormData] = useState({
+    guestName: '',
+    isAttending: true,
+    totalGuests: 1,
+    wantsMeal: true,
+    relation: 'groom',
+    message: ''
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  if (!data.isRSVPEnabled) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Logic for Supabase integration will go here later
+    console.log('RSVP Submitted:', formData);
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="rsvp-section section">
+        <div className="success-message">
+          <CheckCircle2 size={48} color="#b89c8e" />
+          <h3>참석 응답이 전달되었습니다</h3>
+          <p>소중한 응답 감사합니다.</p>
+          <button className="reset-btn" onClick={() => setSubmitted(false)}>다시 입력하기</button>
+        </div>
+        <style>{`
+          .success-message {
+            padding: 40px 20px;
+            background: #fff;
+            border-radius: 24px;
+            border: 1px solid #f0eae5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+          }
+          .success-message h3 { color: #b89c8e; margin: 0; }
+          .success-message p { color: #8c8581; margin: 0; }
+          .reset-btn { margin-top: 10px; font-size: 0.8rem; color: #aaa; text-decoration: underline; }
+        `}</style>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rsvp-section section" style={{ fontFamily: data.fontFamily }}>
+      <div className="rsvp-header">
+        <h2>참석 여부 전달하기</h2>
+        <p>축하의 마음으로 참석해주시는<br />모든 분들의 성함을 남겨주세요.</p>
+      </div>
+
+      <form className="rsvp-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <div className="tab-group">
+            <button 
+              type="button" 
+              className={`tab-btn ${formData.relation === 'groom' ? 'active' : ''}`}
+              onClick={() => setFormData({...formData, relation: 'groom'})}
+            >
+              신랑측
+            </button>
+            <button 
+              type="button" 
+              className={`tab-btn ${formData.relation === 'bride' ? 'active' : ''}`}
+              onClick={() => setFormData({...formData, relation: 'bride'})}
+            >
+              신부측
+            </button>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <input 
+            type="text" 
+            placeholder="성함을 입력해 주세요" 
+            className="rsvp-input"
+            required
+            value={formData.guestName}
+            onChange={(e) => setFormData({...formData, guestName: e.target.value})}
+          />
+        </div>
+
+        <div className="form-row">
+          <div className="form-group flex-1">
+            <label><Users size={14} /> 동반 인원</label>
+            <select 
+              className="rsvp-select"
+              value={formData.totalGuests}
+              onChange={(e) => setFormData({...formData, totalGuests: parseInt(e.target.value)})}
+            >
+              {[1,2,3,4,5].map(n => <option key={n} value={n}>{n}명 (본인포함)</option>)}
+            </select>
+          </div>
+          <div className="form-group flex-1">
+            <label><Utensils size={14} /> 식사 여부</label>
+            <select 
+              className="rsvp-select"
+              value={formData.wantsMeal ? 'yes' : 'no'}
+              onChange={(e) => setFormData({...formData, wantsMeal: e.target.value === 'yes'})}
+            >
+              <option value="yes">식사 함</option>
+              <option value="no">식사 안함</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <textarea 
+            placeholder="축하 메시지 (선택사항)" 
+            className="rsvp-textarea"
+            rows={3}
+            value={formData.message}
+            onChange={(e) => setFormData({...formData, message: e.target.value})}
+          />
+        </div>
+
+        <button type="submit" className="submit-btn">
+          참석 의사 전달하기
+        </button>
+      </form>
+
+      <style>{`
+        .rsvp-section {
+          background-color: #f7f3f0;
+        }
+        .rsvp-header h2 { margin-bottom: 15px; }
+        .rsvp-header p { 
+          font-size: 0.9rem; 
+          color: #8c8581; 
+          line-height: 1.6;
+          margin-bottom: 40px;
+        }
+        .rsvp-form {
+          background: #fff;
+          padding: 30px 20px;
+          border-radius: 28px;
+          border: 1px solid #f0eae5;
+          box-shadow: 0 10px 40px rgba(184, 156, 142, 0.1);
+          text-align: left;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-row { display: flex; gap: 15px; }
+        .flex-1 { flex: 1; }
+        .form-group label {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #b89c8e;
+          margin-bottom: 8px;
+        }
+        .tab-group {
+          display: flex;
+          background: #f7f3f0;
+          padding: 4px;
+          border-radius: 12px;
+        }
+        .tab-btn {
+          flex: 1;
+          padding: 10px;
+          border-radius: 8px;
+          font-size: 0.85rem;
+          color: #8c8581;
+          transition: all 0.2s;
+        }
+        .tab-btn.active {
+          background: #fff;
+          color: #b89c8e;
+          font-weight: 700;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .rsvp-input, .rsvp-select, .rsvp-textarea {
+          width: 100%;
+          padding: 14px;
+          border: 1px solid #f0eae5;
+          border-radius: 12px;
+          background: #fdfbf9;
+          font-size: 0.9rem;
+          box-sizing: border-box;
+          font-family: inherit;
+        }
+        .rsvp-input:focus, .rsvp-select:focus, .rsvp-textarea:focus {
+          outline: none;
+          border-color: #b89c8e;
+        }
+        .submit-btn {
+          width: 100%;
+          padding: 16px;
+          background: #b89c8e;
+          color: white;
+          border-radius: 14px;
+          font-weight: 700;
+          font-size: 1rem;
+          margin-top: 10px;
+          transition: background 0.2s;
+        }
+        .submit-btn:hover { background: #a68b7d; }
+      `}</style>
+    </div>
+  );
+};
+
+export default RSVPForm;

@@ -95,6 +95,17 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
             />
             <p className="input-hint">MP3 링크를 입력하면 청첩장에서 재생됩니다.</p>
           </div>
+          <div className="input-group">
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                checked={data.isRSVPEnabled} 
+                onChange={(e) => onChange({ ...data, isRSVPEnabled: e.target.checked })} 
+              />
+              참석 응답(RSVP) 기능 활성화
+            </label>
+            <p className="input-hint">하객들이 참석 여부를 전달할 수 있는 폼을 생성합니다.</p>
+          </div>
         </div>
 
         <div className="editor-section">
@@ -285,6 +296,31 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
           border-color: #b89c8e;
           background: white;
           box-shadow: 0 0 0 4px rgba(184, 156, 142, 0.1);
+        }
+        .styled-select {
+          width: 100%;
+          padding: 14px;
+          border: 1px solid #f0eae5;
+          border-radius: 12px;
+          font-size: 0.95rem;
+          background: white;
+          cursor: pointer;
+        }
+        .checkbox-label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 0.9rem;
+          color: #4a4543;
+          font-weight: 600;
+          cursor: pointer;
+          text-transform: none !important;
+          letter-spacing: 0 !important;
+        }
+        .checkbox-label input {
+          width: 18px;
+          height: 18px;
+          cursor: pointer;
         }
         .search-input-wrapper {
           display: flex;
