@@ -15,18 +15,18 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  padding: 0;
   min-height: 100vh;
+  display: block; /* Removed flex center to prevent global centering */
 }
 
 #root {
-  max-width: 480px;
-  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  max-width: none; /* Removed max-width 480px */
+  margin: 0;
   background: white;
-  box-shadow: 0 0 20px rgba(0,0,0,0.05);
-  width: 100%;
+  box-shadow: none;
 }
 
 .section {
