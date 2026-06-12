@@ -217,30 +217,31 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
         .editor-scroll-area {
           flex: 1;
           overflow-y: auto;
-          background: #f8f9fa;
+          background: #fdfbf9;
         }
         .editor-content-wrapper {
-          padding: 24px;
+          padding: 30px 24px;
         }
         .editor-section {
           background: white;
-          padding: 24px;
-          border-radius: 16px;
-          margin-bottom: 24px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-          border: 1px solid #edf2f7;
+          padding: 28px;
+          border-radius: 20px;
+          margin-bottom: 30px;
+          box-shadow: 0 4px 20px rgba(184, 156, 142, 0.08);
+          border: 1px solid #f0eae5;
         }
         .editor-section h3 {
           margin-top: 0;
-          margin-bottom: 20px;
-          font-size: 1.15rem;
-          color: #2d3748;
-          border-left: 5px solid #ff9a9e;
-          padding-left: 12px;
+          margin-bottom: 24px;
+          font-size: 1.1rem;
+          color: #b89c8e;
+          border-left: 4px solid #e5d1c8;
+          padding-left: 14px;
           font-weight: 700;
+          letter-spacing: 1px;
         }
         .input-group {
-          margin-bottom: 18px;
+          margin-bottom: 20px;
         }
         .input-row {
           display: grid;
@@ -249,23 +250,29 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
         }
         .input-group label {
           display: block;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           font-weight: 600;
-          color: #4a5568;
-          margin-bottom: 8px;
+          color: #8c8581;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
-        .input-group input, .input-group textarea {
+        .input-group input, .input-group textarea, .styled-select {
           width: 100%;
-          padding: 12px;
-          border: 1.5px solid #e2e8f0;
-          border-radius: 10px;
+          padding: 14px;
+          border: 1px solid #f0eae5;
+          border-radius: 12px;
           font-size: 0.95rem;
+          color: #4a4543;
           box-sizing: border-box;
-          transition: border-color 0.2s;
+          background: #fdfbf9;
+          transition: all 0.2s ease;
         }
-        .input-group input:focus, .input-group textarea:focus {
+        .input-group input:focus, .input-group textarea:focus, .styled-select:focus {
           outline: none;
-          border-color: #ff9a9e;
+          border-color: #b89c8e;
+          background: white;
+          box-shadow: 0 0 0 4px rgba(184, 156, 142, 0.1);
         }
         .search-input-wrapper {
           display: flex;
@@ -274,31 +281,24 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
         .search-btn {
           display: flex;
           align-items: center;
-          gap: 6px;
-          padding: 0 16px;
-          background: #333;
+          gap: 8px;
+          padding: 0 20px;
+          background: #b89c8e;
           color: white;
-          border-radius: 10px;
+          border-radius: 12px;
           font-size: 0.85rem;
+          font-weight: 600;
           white-space: nowrap;
-          transition: background 0.2s;
+          transition: all 0.2s ease;
         }
         .search-btn:hover {
-          background: #555;
-        }
-        .styled-select {
-          width: 100%;
-          padding: 12px;
-          border: 1.5px solid #e2e8f0;
-          border-radius: 10px;
-          font-size: 0.95rem;
-          background: white;
-          cursor: pointer;
+          background: #a68b7d;
+          transform: translateY(-1px);
         }
         .input-hint {
           font-size: 0.75rem;
-          color: #888;
-          margin-top: 5px;
+          color: #b89c8e;
+          margin-top: 8px;
           margin-bottom: 0;
         }
         .nested-grid {
@@ -307,10 +307,10 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
           gap: 15px;
         }
         .nested-card {
-          padding: 18px;
-          background: #f7fafc;
-          border-radius: 12px;
-          border: 1px solid #edf2f7;
+          padding: 20px;
+          background: #fdfbf9;
+          border-radius: 14px;
+          border: 1px solid #f0eae5;
         }
         .nested-inputs {
           display: flex;
@@ -319,19 +319,19 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
         }
         .nested-inputs input {
           width: 100%;
-          padding: 10px;
-          border: 1px solid #e2e8f0;
-          border-radius: 8px;
+          padding: 12px;
+          border: 1px solid #f0eae5;
+          border-radius: 10px;
           font-size: 0.9rem;
           box-sizing: border-box;
           background: white;
         }
         .sub-label {
           font-weight: 700;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           margin-top: 0;
           margin-bottom: 12px;
-          color: #4a5568;
+          color: #b89c8e;
         }
       `}</style>
     </div>

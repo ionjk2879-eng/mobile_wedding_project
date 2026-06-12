@@ -71,14 +71,14 @@ const App: React.FC = () => {
         body {
           margin: 0;
           padding: 0;
-          overflow: hidden; /* Prevent global scroll */
+          overflow: hidden;
         }
         .builder-layout {
           display: grid;
           grid-template-columns: 450px 1fr;
           height: 100vh;
           width: 100vw;
-          background: #f0f2f5;
+          background: #f7f3f0;
           font-family: 'Pretendard', sans-serif;
           overflow: hidden;
         }
@@ -88,28 +88,30 @@ const App: React.FC = () => {
           height: 100vh;
           background: white;
           z-index: 10;
-          box-shadow: 2px 0 15px rgba(0,0,0,0.08);
-          overflow: hidden; /* Container doesn't scroll, child does */
+          box-shadow: 10px 0 30px rgba(74, 69, 67, 0.05);
+          overflow: hidden;
         }
         .builder-header {
-          padding: 24px;
-          border-bottom: 1px solid #eee;
+          padding: 30px 24px;
+          border-bottom: 1px solid #f0eae5;
           background: #fff;
           flex-shrink: 0;
         }
         .builder-header h1 {
-          font-size: 1.5rem;
+          font-size: 1.6rem;
+          font-weight: 700;
           margin: 0;
-          color: #333;
+          color: #b89c8e;
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
+          letter-spacing: -0.5px;
         }
         .builder-header p {
           font-size: 0.85rem;
-          color: #888;
-          margin: 8px 0 0 0;
-          line-height: 1.4;
+          color: #8c8581;
+          margin: 10px 0 0 0;
+          line-height: 1.5;
         }
         .preview-panel {
           height: 100vh;
@@ -117,9 +119,9 @@ const App: React.FC = () => {
           align-items: center;
           justify-content: center;
           padding: 20px;
-          background: #e2e8f0;
+          background: #f7f3f0;
           position: relative;
-          overflow: hidden; /* No scroll here */
+          overflow: hidden;
         }
         .phone-container {
           height: 100%;
@@ -130,53 +132,38 @@ const App: React.FC = () => {
           transform: scale(0.9);
           transition: transform 0.3s ease;
         }
-        @media (min-height: 950px) {
-          .phone-container {
-            transform: scale(1);
-          }
-        }
-        @media (max-height: 850px) {
-          .phone-container {
-            transform: scale(0.85);
-          }
-        }
-        @media (max-height: 700px) {
-          .phone-container {
-            transform: scale(0.7);
-          }
-        }
         .phone-frame {
           width: 375px;
           height: 812px;
-          background: white;
-          border: 12px solid #1a1a1a;
-          border-radius: 50px;
-          box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+          background: #fdfbf9;
+          border: 8px solid #4a4543;
+          border-radius: 54px;
+          box-shadow: 0 40px 100px rgba(74, 69, 67, 0.15);
           overflow: hidden;
           position: relative;
           display: flex;
           flex-direction: column;
           flex-shrink: 0;
         }
-        /* Top Notch */
+        /* Top Notch - Sleeker */
         .phone-frame::before {
           content: '';
           position: absolute;
           top: 0;
           left: 50%;
           transform: translateX(-50%);
-          width: 160px;
-          height: 30px;
-          background: #1a1a1a;
-          border-bottom-left-radius: 18px;
-          border-bottom-right-radius: 18px;
+          width: 140px;
+          height: 28px;
+          background: #4a4543;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
           z-index: 100;
         }
         .phone-content {
           flex: 1;
           width: 100%;
           overflow-y: auto;
-          background: #fff;
+          background: #fdfbf9;
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
