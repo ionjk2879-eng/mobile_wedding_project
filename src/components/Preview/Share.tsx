@@ -1,14 +1,18 @@
 import React from 'react';
 import { Share2, Link } from 'lucide-react';
+import { InvitationData } from '../../types';
 
-const Share: React.FC = () => {
+interface PreviewProps {
+  data: InvitationData;
+}
+
+const Share: React.FC<PreviewProps> = ({ data }) => {
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
     alert('링크가 복사되었습니다.');
   };
 
   const handleKakaoShare = () => {
-    // In a real app, you would use Kakao SDK here
     alert('카카오톡 공유 기능은 SDK 설정이 필요합니다.');
   };
 
@@ -26,7 +30,7 @@ const Share: React.FC = () => {
       </div>
 
       <footer className="footer">
-        <p>Copyright © 2026 지현 & 민지. All rights reserved.</p>
+        <p>Copyright © 2026 {data.groomName} & {data.brideName}. All rights reserved.</p>
       </footer>
 
       <style>{`

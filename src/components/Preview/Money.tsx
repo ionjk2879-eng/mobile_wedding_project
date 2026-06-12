@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
+import { InvitationData } from '../../types';
 
-const Money: React.FC = () => {
+interface PreviewProps {
+  data: InvitationData;
+}
+
+const Money: React.FC<PreviewProps> = ({ data }) => {
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
-
-  const accounts = [
-    { side: '신랑측', bank: '국민은행', number: '123456-78-901234', owner: '김지현' },
-    { side: '신부측', bank: '신한은행', number: '110-123-456789', owner: '이민지' },
-  ];
 
   const handleCopy = (account: string) => {
     navigator.clipboard.writeText(account);
@@ -23,7 +23,7 @@ const Money: React.FC = () => {
       </p>
 
       <div className="account-list">
-        {accounts.map((acc, index) => (
+        {data.accounts.map((acc, index) => (
           <div key={index} className="account-item">
             <div className="account-info">
               <span className="side-label">{acc.side}</span>

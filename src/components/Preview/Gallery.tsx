@@ -1,20 +1,16 @@
 import React from 'react';
+import { InvitationData } from '../../types';
 
-const Gallery: React.FC = () => {
-  const photos = [
-    '/src/assets/hero.png',
-    '/src/assets/hero.png',
-    '/src/assets/hero.png',
-    '/src/assets/hero.png',
-    '/src/assets/hero.png',
-    '/src/assets/hero.png',
-  ];
+interface PreviewProps {
+  data: InvitationData;
+}
 
+const Gallery: React.FC<PreviewProps> = ({ data }) => {
   return (
     <section className="gallery section">
       <h2>갤러리</h2>
       <div className="photo-grid">
-        {photos.map((src, index) => (
+        {data.photos.map((src, index) => (
           <div key={index} className="photo-item">
             <img src={src} alt={`Gallery ${index}`} />
           </div>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { MapPin, Navigation } from 'lucide-react';
+import { InvitationData } from '../../types';
 
-const Location: React.FC = () => {
-  const address = "서울 강남구 테헤란로 123";
-  const venueName = "서울 웨딩 가든";
+interface PreviewProps {
+  data: InvitationData;
+}
 
+const Location: React.FC<PreviewProps> = ({ data }) => {
   const navLinks = [
     { name: '카카오내비', url: 'https://map.kakao.com/' },
     { name: '네이버 지도', url: 'https://map.naver.com/' },
@@ -15,8 +17,8 @@ const Location: React.FC = () => {
     <section className="location section">
       <h2>오시는 길</h2>
       <div className="location-info">
-        <h3 className="venue-name">{venueName}</h3>
-        <p className="address">{address}</p>
+        <h3 className="venue-name">{data.venueName}</h3>
+        <p className="address">{data.venueAddress}</p>
       </div>
 
       <div className="map-placeholder">
@@ -31,17 +33,6 @@ const Location: React.FC = () => {
             <span>{nav.name}</span>
           </a>
         ))}
-      </div>
-
-      <div className="transport">
-        <div className="transport-item">
-          <strong>지하철</strong>
-          <p>2호선 강남역 12번 출구 도보 5분</p>
-        </div>
-        <div className="transport-item">
-          <strong>버스</strong>
-          <p>서초03, 402, 441 강남역 사거리 하차</p>
-        </div>
       </div>
 
       <style>{`
@@ -84,28 +75,6 @@ const Location: React.FC = () => {
           align-items: center;
           gap: 5px;
           font-size: 0.8rem;
-        }
-        .transport {
-          text-align: left;
-          background: #f9f9f9;
-          padding: 20px;
-          border-radius: 8px;
-        }
-        .transport-item {
-          margin-bottom: 15px;
-        }
-        .transport-item:last-child {
-          margin-bottom: 0;
-        }
-        .transport-item strong {
-          display: block;
-          font-size: 0.9rem;
-          margin-bottom: 5px;
-          color: #333;
-        }
-        .transport-item p {
-          font-size: 0.85rem;
-          color: #666;
         }
       `}</style>
     </section>

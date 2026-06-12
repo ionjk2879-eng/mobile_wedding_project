@@ -1,23 +1,29 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { InvitationData } from '../../types';
 
-const Hero: React.FC = () => {
+interface PreviewProps {
+  data: InvitationData;
+}
+
+const Hero: React.FC<PreviewProps> = ({ data }) => {
   return (
     <section className="hero">
       <motion.div 
+        key={`${data.groomName}-${data.brideName}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="hero-content"
       >
         <p className="wedding-label">WEDDING INVITATION</p>
-        <h1 className="names">지현 & 민지</h1>
+        <h1 className="names">{data.groomName} & {data.brideName}</h1>
         <div className="main-image-container">
-          <img src="/src/assets/hero.png" alt="Wedding Hero" className="main-image" />
+          <img src={data.photos[0] || "/src/assets/hero.png"} alt="Wedding Hero" className="main-image" />
         </div>
         <div className="wedding-info">
-          <p className="date">2026. 10. 24. SAT PM 12:30</p>
-          <p className="venue">서울 웨딩 가든, 그랜드홀</p>
+          <p className="date">{data.date} {data.time}</p>
+          <p className="venue">{data.venueName}</p>
         </div>
       </motion.div>
       <style>{`
@@ -43,6 +49,7 @@ const Hero: React.FC = () => {
           margin-bottom: 30px;
           border-radius: 200px 200px 0 0;
           overflow: hidden;
+          background: #f5f5f5;
         }
         .main-image {
           width: 100%;
