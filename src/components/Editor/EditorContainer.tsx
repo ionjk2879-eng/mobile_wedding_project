@@ -1,5 +1,12 @@
 import React from 'react';
+import { Search } from 'lucide-react';
 import { InvitationData } from '../../types';
+
+declare global {
+  interface Window {
+    daum: any;
+  }
+}
 
 interface EditorProps {
   data: InvitationData;
@@ -10,6 +17,31 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     onChange({ ...data, [name]: value });
+  };
+
+  const handleAddressSearch = () => {
+    new window.daum.Postcode({
+      oncomplete: (searchData: any) => {
+        let fullAddress = searchData.address;
+        let extraAddress = '';
+
+        if (searchData.addressType === 'R') {
+          if (searchData.bname !== '') {
+            extraAddress += searchData.bname;
+          }
+          if (searchData.buildingName !== '') {
+            extraAddress += (extraAddress !== '' ? `, ${searchData.buildingName}` : searchData.buildingName);
+          }
+          fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+        }
+
+        onChange({
+          ...data,
+          venueAddress: fullAddress,
+          venueName: searchData.buildingName || data.venueName
+        });
+      }
+    }).open();
   };
 
   const handleContactChange = (index: number, field: string, value: string) => {
@@ -102,12 +134,25 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
         <div className="editor-section">
           <h3>장소 정보</h3>
           <div className="input-group">
-            <label>예식장 이름</label>
-            <input type="text" name="venueName" value={data.venueName} onChange={handleChange} />
+            <label>예식장 주소</label>
+            <div className="search-input-wrapper">
+              <input 
+                type="text" 
+                name="venueAddress" 
+                value={data.venueAddress} 
+                onChange={handleChange} 
+                placeholder="주소 검색 버튼을 눌러주세요"
+                readOnly
+              />
+              <button className="search-btn" onClick={handleAddressSearch}>
+                <Search size={18} />
+                <span>주소 검색</span>
+              </button>
+            </div>
           </div>
           <div className="input-group">
-            <label>예식장 주소</label>
-            <input type="text" name="venueAddress" value={data.venueAddress} onChange={handleChange} />
+            <label>예식장 이름 (자동 입력 후 수정 가능)</label>
+            <input type="text" name="venueName" value={data.venueName} onChange={handleChange} />
           </div>
         </div>
 
@@ -221,6 +266,25 @@ const EditorContainer: React.FC<EditorProps> = ({ data, onChange }) => {
         .input-group input:focus, .input-group textarea:focus {
           outline: none;
           border-color: #ff9a9e;
+        }
+        .search-input-wrapper {
+          display: flex;
+          gap: 10px;
+        }
+        .search-btn {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 0 16px;
+          background: #333;
+          color: white;
+          border-radius: 10px;
+          font-size: 0.85rem;
+          white-space: nowrap;
+          transition: background 0.2s;
+        }
+        .search-btn:hover {
+          background: #555;
         }
         .styled-select {
           width: 100%;
