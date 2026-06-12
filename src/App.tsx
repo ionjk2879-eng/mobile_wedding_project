@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import EditorContainer from './components/Editor/EditorContainer';
 import Hero from './components/Preview/Hero';
 import Greeting from './components/Preview/Greeting';
+import PersonalMessage from './components/Preview/PersonalMessage';
 import Gallery from './components/Preview/Gallery';
 import Location from './components/Preview/Location';
 import Money from './components/Preview/Money';
@@ -57,6 +58,7 @@ const App: React.FC = () => {
             <div className="phone-content">
               <Hero data={data} />
               <Greeting data={data} />
+              <PersonalMessage data={data} />
               <Gallery data={data} />
               <Location data={data} />
               <Money data={data} />
